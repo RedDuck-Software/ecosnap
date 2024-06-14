@@ -24,6 +24,7 @@
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^10.3.3",
     "@nestjs/typeorm": "^10.0.2",
+    "@solana/web3.js": "^1.93.0",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {

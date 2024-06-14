@@ -2,10 +2,10 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import { getDataSourceOptions, readEnv } from '@gc/database-common';
-import { EntityTest } from './entities';
+import { User, DaoVote, GarbageCollect, GarbageCollectDaoMerkleSubmission } from './entities';
 
 export const defaultDataSource = getDataSourceOptions(readEnv, (readEnv) => ({
-  entities: [EntityTest],
+  entities: [User, DaoVote, GarbageCollect, GarbageCollectDaoMerkleSubmission],
   migrations: readEnv('RUN_MIGRATION') ? ['**/migrations/*.{ts,js}'] : undefined,
   migrationsRun: false,
   synchronize: true,
