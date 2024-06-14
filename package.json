@@ -1,0 +1,33 @@
+{
+  "name": "gc",
+  "private": true,
+  "scripts": {
+    "build": "turbo build --filter='!solana-contracts'",
+    "build:all": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "turbo format",
+    "dev:web": "yarn dev --filter=web --",
+    "heroku-postbuild": "sh ./heroku-build.sh",
+    "build:api": "yarn build:all --filter=@apps/api",
+    "run:api": "yarn build:api && yarn dev --filter=@apps/api"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "yarn@1.22.22",
+  "workspaces": [
+    "apps/*",
+    "apps/contracts/*",
+    "apps/backend/*",
+    "packages/*",
+    "packages/database/*"
+  ],
+  "dependencies": {
+    "prettier-plugin-tailwindcss": "^0.5.14"
+  }
+}

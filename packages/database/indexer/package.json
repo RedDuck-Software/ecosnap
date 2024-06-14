@@ -1,0 +1,52 @@
+{
+  "name": "@gc/database-gc",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "private": true,
+  "config": {
+    "db_tsconfig_path": "./tsconfig.json",
+    "typeorm_config_path": "./src/data-source.ts",
+    "migrations_path": "./src/migrations/"
+  },
+  "scripts": {
+    "format": "yarn format:prettier && yarn format:es",
+    "format:prettier": "prettier --write .",
+    "format:es": "eslint \"{src,apps,libs,test}/**/*.ts{,?}\" --fix",
+    "lint": "yarn lint:prettier && yarn lint:typescript && yarn lint:es",
+    "lint:typescript": "tsc --noEmit",
+    "lint:prettier": "prettier --check .",
+    "lint:es": "eslint \"{src,apps,libs,test}/**/*.ts{,?}\"",
+    "precommit:format": "prettier --write --ignore-unknown",
+    "bundle": "yarn tsup-node -- ./src/index.ts",
+    "type:gen": "tsc --emitDeclarationOnly",
+    "build": "run-p bundle type:gen",
+    "dev": "yarn build",
+    "typeorm:cli": "cross-env RUN_MIGRATION=true ./node_modules/.bin/env-cmd -f ../../../.env ts-node --project $npm_package_config_db_tsconfig_path -r tsconfig-paths/register ../../../node_modules/typeorm/cli.js",
+    "typeorm:schema:sync": "yarn typeorm:cli -d $npm_package_config_typeorm_config_path schema:sync",
+    "typeorm:migration:run": "yarn typeorm:cli -d $npm_package_config_typeorm_config_path migration:run",
+    "typeorm:migration:generate": "yarn typeorm:cli -d $npm_package_config_typeorm_config_path migration:generate $npm_package_config_migrations_path/$npm_config_name",
+    "typeorm:migration:show": "yarn typeorm:cli -d $npm_package_config_typeorm_config_path migration:show"
+  },
+  "dependencies": {
+    "@nestjs/cli": "^10.3.2",
+    "@nestjs/common": "^10.3.3",
+    "@nestjs/config": "^3.2.0",
+    "@nestjs/core": "^10.3.3",
+    "@nestjs/typeorm": "^10.0.2",
+    "@gc/database-common": "*",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@gc/eslint-config": "*",
+    "@gc/prettier-config": "*",
+    "@gc/typescript-config": "*",
+    "cross-env": "^7.0.3",
+    "env-cmd": "^10.1.0",
+    "npm-run-all": "^4.1.5",
+    "tsup": "^8.0.2"
+  }
+}

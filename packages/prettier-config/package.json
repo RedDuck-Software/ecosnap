@@ -1,0 +1,13 @@
+{
+  "name": "@gc/prettier-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "files": [
+    ".prettierrc.js",
+    ".prettierignore"
+  ],
+  "dependencies": {
+    "prettier": "^2.8.1"
+  }
+}
