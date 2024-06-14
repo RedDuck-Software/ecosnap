@@ -16,12 +16,12 @@ export class User extends TimeKnownEntity {
   @SolanaPubKeyColumn()
   pubKey: PublicKey;
 
-  @OneToMany(() => DaoVote, (v) => v.voter)
+  @OneToMany(() => DaoVote, (v) => v.voter, { cascade: true })
   daoVotes: DaoVote[];
 
-  @OneToMany(() => AuthNonce, (v) => v.user)
+  @OneToMany(() => AuthNonce, (v) => v.user, { cascade: true })
   authNonces: AuthNonce[];
 
-  @OneToMany(() => GarbageCollect, (v) => v.user)
+  @OneToMany(() => GarbageCollect, (v) => v.user, { cascade: true })
   garbageCollects: GarbageCollect[];
 }

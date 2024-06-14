@@ -9,7 +9,7 @@ export class GarbageCollectDaoMerkleSubmission extends TimeKnownEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToMany(() => GarbageCollect, (v) => v.merkleSubmission)
+  @OneToMany(() => GarbageCollect, (v) => v.merkleSubmission, { cascade: true })
   garbageCollects: GarbageCollect[];
 
   @Column({ type: 'varchar' })

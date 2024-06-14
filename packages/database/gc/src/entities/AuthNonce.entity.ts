@@ -11,6 +11,6 @@ export class AuthNonce extends TimeKnownEntity {
   @Column({ type: 'boolean' })
   used: boolean;
 
-  @ManyToOne(() => User, (v) => v.authNonces)
+  @ManyToOne(() => User, (v) => v.authNonces, { eager: true, onDelete: 'CASCADE' })
   user: User;
 }

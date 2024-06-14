@@ -12,12 +12,16 @@ export class GarbageCollect extends TimeKnownEntity {
   @ManyToOne(() => User, (v) => v.garbageCollects, { nullable: false, eager: true, onDelete: 'CASCADE' })
   user: User;
 
-  @OneToMany(() => DaoVote, (v) => v.garbageCollect)
+  @OneToMany(() => DaoVote, (v) => v.garbageCollect, { cascade: true })
   daoVotes: DaoVote[];
 
   @Column({ type: 'number', nullable: true })
   pointsGiven?: number;
 
-  @ManyToOne(() => GarbageCollectDaoMerkleSubmission, (v) => v.garbageCollects, { nullable: true })
+  @ManyToOne(() => GarbageCollectDaoMerkleSubmission, (v) => v.garbageCollects, {
+    nullable: true,
+    eager: true,
+    onDelete: 'CASCADE',
+  })
   merkleSubmission?: GarbageCollectDaoMerkleSubmission;
 }
