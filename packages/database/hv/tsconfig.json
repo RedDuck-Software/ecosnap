@@ -1,0 +1,10 @@
+{
+  "extends": "@gc/typescript-config/nestjs.json",
+  "include": ["../gc/src/**/*"],
+  "compilerOptions": {
+    "outDir": "../gc/dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "exclude": ["../gc/node_modules"]
+}

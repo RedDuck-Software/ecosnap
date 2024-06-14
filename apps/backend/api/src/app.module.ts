@@ -3,9 +3,11 @@
 import { DynamicModule, Logger, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from '@gc/database-common';
-import { defaultDataSource } from '@gc/database-gc';
+import { defaultDataSource } from '../../../../packages/database/gc/dist';
 
 import path from 'path';
+import { JwtModule } from './jwt/jwt.module';
+import { AuthModule } from './auth/auth.module';
 
 class GlobalProviders {
   static forRoot(): DynamicModule {
@@ -31,6 +33,8 @@ class GlobalProviders {
         };
       },
     }),
+    JwtModule.forRootAsync({}),
+    AuthModule,
   ],
   providers: [],
   exports: [],

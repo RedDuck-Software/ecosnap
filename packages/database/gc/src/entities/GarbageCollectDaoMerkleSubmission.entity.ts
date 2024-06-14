@@ -1,7 +1,8 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { TimeKnownEntity } from '@gc/database-common';
+import { SolanaPubKeyColumn, TimeKnownEntity } from '@gc/database-common';
 import { DaoVote } from './DaoVote.entity';
 import { GarbageCollect } from './GarbageCollect.entity';
+import { PublicKey } from '@solana/web3.js';
 
 @Entity({ name: 'garbage_collect_dao_merkle_submission' })
 export class GarbageCollectDaoMerkleSubmission extends TimeKnownEntity {
@@ -13,4 +14,7 @@ export class GarbageCollectDaoMerkleSubmission extends TimeKnownEntity {
 
   @Column({ type: 'varchar' })
   merkleRootHash?: string;
+
+  @SolanaPubKeyColumn(undefined, { nullable: true })
+  contractRootHashStatePubKey?: PublicKey;
 }

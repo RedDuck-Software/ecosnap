@@ -1,7 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { TimeKnownEntity } from '@gc/database-common';
+import { SolanaPubKeyColumn, TimeKnownEntity } from '@gc/database-common';
 import { DaoVote } from './DaoVote.entity';
 import { GarbageCollect } from './GarbageCollect.entity';
+import { AuthNonce } from './AuthNonce.entity';
+import { PublicKey } from '@solana/web3.js';
 
 @Entity({ name: 'user' })
 export class User extends TimeKnownEntity {
@@ -11,8 +13,14 @@ export class User extends TimeKnownEntity {
   @Column({ type: 'number' })
   points: number;
 
+  @SolanaPubKeyColumn()
+  pubKey: PublicKey;
+
   @OneToMany(() => DaoVote, (v) => v.voter)
   daoVotes: DaoVote[];
+
+  @OneToMany(() => AuthNonce, (v) => v.user)
+  authNonces: AuthNonce[];
 
   @OneToMany(() => GarbageCollect, (v) => v.user)
   garbageCollects: GarbageCollect[];

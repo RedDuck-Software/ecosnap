@@ -30,12 +30,13 @@
     "typeorm:migration:show": "yarn typeorm:cli -d $npm_package_config_typeorm_config_path migration:show"
   },
   "dependencies": {
+    "@gc/database-common": "*",
     "@nestjs/cli": "^10.3.2",
     "@nestjs/common": "^10.3.3",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^10.3.3",
     "@nestjs/typeorm": "^10.0.2",
-    "@gc/database-common": "*",
+    "@solana/web3.js": "^1.93.0",
     "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
     "typeorm": "^0.3.20"
