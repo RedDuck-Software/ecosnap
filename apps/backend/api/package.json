@@ -44,6 +44,7 @@
     "@gc/eslint-config": "*",
     "@gc/prettier-config": "*",
     "@gc/typescript-config": "*",
+    "@gc/storage": "*",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",

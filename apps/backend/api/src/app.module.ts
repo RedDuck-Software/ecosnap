@@ -10,6 +10,7 @@ import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { DaoModule } from './dao/dao.module';
 import { GcModule } from './gc/gc.module';
+import { StorageModule } from '@gc/storage';
 
 class GlobalProviders {
   static forRoot(): DynamicModule {
@@ -35,7 +36,10 @@ class GlobalProviders {
         };
       },
     }),
-    JwtModule.forRootAsync({}),
+    JwtModule.forRootAsync({ global: true }),
+    StorageModule.forRootAsync({
+      global: true,
+    }),
     AuthModule,
     DaoModule,
     GcModule,

@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
 import { StorageModuleConfig } from './storage.module-definition';
 import { Connection } from '@solana/web3.js';
 
@@ -8,4 +8,12 @@ export class StorageService {
     @Inject('STORAGE_CONFIG')
     public readonly config: StorageModuleConfig
   ) {}
+
+  async writeFile({ id, content, extension }: { id: string; content: Buffer; extension: string }) {
+    throw new NotImplementedException();
+  }
+
+  async readFile({}: { id: string }): Promise<Buffer> {
+    throw new NotImplementedException();
+  }
 }

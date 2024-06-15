@@ -1,13 +1,17 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PublicKey } from '@solana/web3.js';
 import { DataSource } from 'typeorm';
-
+import { StorageService } from '@gc/storage';
 import 'multer';
 import { File, GarbageCollect, User } from '@gc/database-gc';
+
 import crypto from 'crypto';
 @Injectable()
 export class GcService {
-  constructor(private readonly dataSource: DataSource) {}
+  constructor(
+    private readonly dataSource: DataSource,
+    private readonly storageService: StorageService
+  ) {}
 
   async publish({
     files,
@@ -60,7 +64,8 @@ export class GcService {
           })
         );
 
-        // TODO: upload to decentralized storage here
+        // TODO: not a good idea to have it inside of a db transaction
+        await this.storageService.writeFile({ content: file.buffer, extension: dbFile.fileExtension, id: dbFile.id });
       }
     });
   }
