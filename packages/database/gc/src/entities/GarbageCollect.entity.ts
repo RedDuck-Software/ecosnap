@@ -3,6 +3,7 @@ import { TimeKnownEntity } from '@gc/database-common';
 import { DaoVote } from './DaoVote.entity';
 import { User } from './User.entity';
 import { GarbageCollectDaoMerkleSubmission } from './GarbageCollectDaoMerkleSubmission.entity';
+import { File } from './File.entity';
 
 @Entity({ name: 'garbage_collect' })
 export class GarbageCollect extends TimeKnownEntity {
@@ -15,8 +16,14 @@ export class GarbageCollect extends TimeKnownEntity {
   @OneToMany(() => DaoVote, (v) => v.garbageCollect, { cascade: true })
   daoVotes: DaoVote[];
 
+  @OneToMany(() => File, (v) => v.garbageCollect, { cascade: true })
+  files: File[];
+
   @Column({ type: 'number', nullable: true })
   pointsGiven?: number;
+
+  @Column({ type: 'varchar', nullable: true, length: 120 })
+  description?: string;
 
   @ManyToOne(() => GarbageCollectDaoMerkleSubmission, (v) => v.garbageCollects, {
     nullable: true,
