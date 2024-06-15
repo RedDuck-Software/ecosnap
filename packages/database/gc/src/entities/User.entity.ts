@@ -16,6 +16,12 @@ export class User extends TimeKnownEntity {
   @SolanaPubKeyColumn()
   pubKey: PublicKey;
 
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  canVote: boolean;
+
   @OneToMany(() => DaoVote, (v) => v.voter, { cascade: true })
   daoVotes: DaoVote[];
 
