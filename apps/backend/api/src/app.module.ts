@@ -9,6 +9,7 @@ import path from 'path';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthModule } from './auth/auth.module';
 import { DaoModule } from './dao/dao.module';
+import { GcModule } from './gc/gc.module';
 
 class GlobalProviders {
   static forRoot(): DynamicModule {
@@ -37,6 +38,7 @@ class GlobalProviders {
     JwtModule.forRootAsync({}),
     AuthModule,
     DaoModule,
+    GcModule,
   ],
   providers: [],
   exports: [],
