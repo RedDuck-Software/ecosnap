@@ -10,7 +10,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { GcService } from './gc.service';
 import { UseUserAuthGuard } from '../guards/user-auth.guard';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
@@ -21,6 +21,7 @@ import { IsOptional, IsString, MaxLength } from 'class-validator';
 export const GC_API_TAG = 'GC';
 
 export class PublishGcDTO {
+  @ApiProperty({ type: String, nullable: true, maxLength: 120 })
   @IsOptional()
   @IsString()
   @MaxLength(120)
@@ -57,7 +58,7 @@ export class GcController {
     @UploadedFiles(fileValidationPipe)
     { photos, videos }: { photos?: Express.Multer.File[]; videos?: Express.Multer.File[] }
   ) {
-    return this.gcService.publish({
+    const gc = await this.gcService.publish({
       publisher: user.pubKey,
       description,
       files: {
@@ -65,5 +66,9 @@ export class GcController {
         videos: videos ?? [],
       },
     });
+
+    return {
+      gcId: gc.id,
+    };
   }
 }

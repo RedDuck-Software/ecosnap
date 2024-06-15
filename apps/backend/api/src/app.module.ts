@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { DynamicModule, Logger, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DatabaseModule } from '@gc/database-common';
 import { defaultDataSource } from '../../../../packages/database/gc/dist';
 
@@ -17,9 +17,17 @@ class GlobalProviders {
     return {
       global: true,
       module: GlobalProviders,
-      providers: [Logger],
-      imports: [],
-      exports: [Logger],
+      providers: [
+        Logger,
+        {
+          provide: 'POINTS_PER_SUCCESS_FULL_GC',
+          inject: [ConfigService],
+          useFactory: (config: ConfigService) => {
+            return +config.get('POINTS_PER_SUCCESS_FULL_GC', '10');
+          },
+        },
+      ],
+      exports: [Logger, 'POINTS_PER_SUCCESS_FULL_GC'],
     };
   }
 }
@@ -36,7 +44,20 @@ class GlobalProviders {
         };
       },
     }),
-    JwtModule.forRootAsync({ global: true }),
+    JwtModule.forRootAsync({
+      global: true,
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        const jwtAuthSecret = config.get('JWT_AUTH_SECRET', 'TEST-SECRET');
+        const jwtExpiresInMs = config.get('JWT_EXPIRES_IN_MS', 2 * 3600 * 1000);
+
+        return {
+          jwtAuthSecret: jwtAuthSecret,
+          jwtExpiresInMs: jwtExpiresInMs,
+        };
+      },
+    }),
     StorageModule.forRootAsync({
       global: true,
     }),

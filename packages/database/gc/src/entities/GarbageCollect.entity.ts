@@ -19,7 +19,7 @@ export class GarbageCollect extends TimeKnownEntity {
   @OneToMany(() => File, (v) => v.garbageCollect, { cascade: true })
   files: File[];
 
-  @Column({ type: 'number', nullable: true })
+  @Column({ type: 'int', nullable: true })
   pointsGiven?: number;
 
   @Column({ type: 'varchar', nullable: true, length: 120 })

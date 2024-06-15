@@ -10,7 +10,7 @@ export class User extends TimeKnownEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'number' })
+  @Column({ type: 'int' })
   points: number;
 
   @SolanaPubKeyColumn()

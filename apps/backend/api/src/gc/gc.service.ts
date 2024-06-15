@@ -30,7 +30,7 @@ export class GcService {
       if (v.size > 100_000_000) throw new BadRequestException('Video file size should be <=100mb');
     });
 
-    await this.dataSource.manager.transaction(async (manager) => {
+    return await this.dataSource.manager.transaction(async (manager) => {
       const fileRepo = manager.getRepository(File);
       const gcRepo = manager.getRepository(GarbageCollect);
       const userRepo = manager.getRepository(User);
@@ -67,6 +67,8 @@ export class GcService {
         // TODO: not a good idea to have it inside of a db transaction
         await this.storageService.writeFile({ content: file.buffer, extension: dbFile.fileExtension, id: dbFile.id });
       }
+
+      return garbageCollect;
     });
   }
 

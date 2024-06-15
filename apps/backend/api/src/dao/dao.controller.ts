@@ -1,20 +1,23 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
-import { ApiTags } from '@nestjs/swagger';
+import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { DaoService } from './dao.service';
 import { UseDaoUserAuthGuard } from '../guards/dao-user-auth.guard';
 import { RequestUser, UserClaims } from '../decorators/request-user.decorator';
+import { CastVoteDirection } from '@gc/database-gc';
+import { IsEnum, IsString, IsUUID } from 'class-validator';
 
 export const DAO_API_TAG = 'DAO';
 
-export enum CastVoteDirection {
-  FOR,
-  AGAINST,
-}
-
 export class CastVoteDTO {
+  @ApiProperty({ type: String, nullable: false })
+  @IsUUID()
   garbageCollectId: string;
+  @ApiProperty({ type: String, nullable: false })
+  @IsString()
   signature: string;
+  @ApiProperty({ type: CastVoteDirection, nullable: false, enum: CastVoteDirection })
+  @IsEnum(CastVoteDirection)
   voteDirection: CastVoteDirection;
 }
 
