@@ -2,10 +2,32 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import { getDataSourceOptions, readEnv } from '@gc/database-common';
-import { User, DaoVote, GarbageCollect, GarbageCollectDaoMerkleSubmission, AuthNonce, File } from './entities';
+import {
+  User,
+  DaoVote,
+  GarbageCollect,
+  MerkleSubmission,
+  AuthNonce,
+  File,
+  CleanupEvent,
+  CleanupEventParticipation,
+  Coupon,
+  Achievement,
+} from './entities';
 
 export const defaultDataSource = getDataSourceOptions(readEnv, (readEnv) => ({
-  entities: [User, DaoVote, GarbageCollect, GarbageCollectDaoMerkleSubmission, AuthNonce, File],
+  entities: [
+    User,
+    DaoVote,
+    GarbageCollect,
+    MerkleSubmission,
+    AuthNonce,
+    File,
+    CleanupEvent,
+    CleanupEventParticipation,
+    Coupon,
+    Achievement,
+  ],
   migrations: readEnv('RUN_MIGRATION') ? ['**/migrations/*.{ts,js}'] : undefined,
   migrationsRun: false,
   synchronize: true,

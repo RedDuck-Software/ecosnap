@@ -1,9 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { SolanaPubKeyColumn, TimeKnownEntity } from '@gc/database-common';
 import { DaoVote } from './DaoVote.entity';
 import { GarbageCollect } from './GarbageCollect.entity';
 import { AuthNonce } from './AuthNonce.entity';
 import { PublicKey } from '@solana/web3.js';
+import { CleanupEvent } from './CleanupEvent.entity';
 
 @Entity({ name: 'user' })
 export class User extends TimeKnownEntity {
@@ -13,7 +14,7 @@ export class User extends TimeKnownEntity {
   @Column({ type: 'int' })
   points: number;
 
-  @SolanaPubKeyColumn()
+  @SolanaPubKeyColumn(undefined, { unique: true })
   pubKey: PublicKey;
 
   @Column({
@@ -30,4 +31,7 @@ export class User extends TimeKnownEntity {
 
   @OneToMany(() => GarbageCollect, (v) => v.user, { cascade: true })
   garbageCollects: GarbageCollect[];
+
+  @ManyToMany(() => CleanupEvent, (v) => v.admins)
+  cleanUpEventsAdmin: CleanupEvent[];
 }

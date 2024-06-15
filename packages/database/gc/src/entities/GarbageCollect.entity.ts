@@ -2,8 +2,8 @@ import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn 
 import { TimeKnownEntity } from '@gc/database-common';
 import { DaoVote } from './DaoVote.entity';
 import { User } from './User.entity';
-import { GarbageCollectDaoMerkleSubmission } from './GarbageCollectDaoMerkleSubmission.entity';
 import { File } from './File.entity';
+import { MerkleSubmission } from './MerkleSubmission.entity';
 
 @Entity({ name: 'garbage_collect' })
 export class GarbageCollect extends TimeKnownEntity {
@@ -25,10 +25,10 @@ export class GarbageCollect extends TimeKnownEntity {
   @Column({ type: 'varchar', nullable: true, length: 120 })
   description?: string;
 
-  @ManyToOne(() => GarbageCollectDaoMerkleSubmission, (v) => v.garbageCollects, {
+  @ManyToOne(() => MerkleSubmission, (v) => v.garbageCollects, {
     nullable: true,
     eager: true,
     onDelete: 'CASCADE',
   })
-  merkleSubmission?: GarbageCollectDaoMerkleSubmission;
+  merkleSubmission?: MerkleSubmission;
 }

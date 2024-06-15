@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module';
 import { DaoModule } from './dao/dao.module';
 import { GcModule } from './gc/gc.module';
 import { StorageModule } from '@gc/storage';
+import { CleanupEventModule } from './cleanup-event/cleanup-event.module';
 
 class GlobalProviders {
   static forRoot(): DynamicModule {
@@ -64,6 +65,7 @@ class GlobalProviders {
     AuthModule,
     DaoModule,
     GcModule,
+    CleanupEventModule,
   ],
   providers: [],
   exports: [],
