@@ -1,0 +1,32 @@
+[toolchain]
+
+[features]
+seeds = false
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+gc = "5Mew5NxqLr5NGG6VbHtkNNK6LNGa5ucKyuV6stWmfy16"
+[programs.devnet]
+gc = "5Mew5NxqLr5NGG6VbHtkNNK6LNGa5ucKyuV6stWmfy16"
+nft = "7PkvYFurAyci1hZFhkvfwHvMFZt9ctdpK8pogGNVizjm"
+[programs.mainnet]
+gc = "5Mew5NxqLr5NGG6VbHtkNNK6LNGa5ucKyuV6stWmfy16"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[test.validator]
+bind_address = "0.0.0.0"
+url = "https://api.mainnet-beta.solana.com"
+ledger = ".anchor/test-ledger"
+rpc_port = 8899
+
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.test.ts"
+init = "yarn ts-node scripts/init.ts"
